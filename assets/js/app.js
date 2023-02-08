@@ -97,7 +97,11 @@ function newNote(e) {
     li.appendChild(removeBtn)
     noteList.appendChild(li)
 
+    this.reset()
+
     addNoteToLocalStorage(note)
+
+    alert('یادداشت با موفقیت ذخیره شد')
 
 }
 
@@ -128,9 +132,6 @@ function addNoteToLocalStorage(note) {
 
 
 }
-
-
-
 
 
 // get notes from localstorage
@@ -176,9 +177,23 @@ function localStorageOnLoad() {
 function removeNoteLocalStorage(noteContent) {
 
     // delete x from the content
-    const  note = noteContent.substring(0, noteContent.length - 1) 
+    const  noteDelete = noteContent.substring(0, noteContent.length - 1) 
 
-    console.log(note)
+    // get notes from localstorage
+    const notesFromLS = getNotesFromLocalStorage()
+
+
+    notesFromLS.forEach(function(note, index)  {
+        if(note === noteDelete) {
+            notesFromLS.splice(index, 1)
+        }
+    });
+
+    // set new array of notes to the local storage
+    localStorage.setItem('notes', JSON.stringify(notesFromLS))
+    
+
+
 }
 
 
